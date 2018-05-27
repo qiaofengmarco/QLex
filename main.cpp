@@ -11,6 +11,6 @@ int main()
     QLex Lex;
     Lex.LexCreate("./lex.l");
     cout << "Finished." << endl;
-	system("pause");
+    system("pause");
     return 0;
 }
