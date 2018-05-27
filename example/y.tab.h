@@ -1,0 +1,63 @@
+//define some constants
+#ifndef YTAB_H
+#define YTAB_H
+
+#define AUTO            1000
+#define BREAK           1001
+#define CASE            1002
+#define CHAR            1003
+#define CONST           1004
+#define CONTINUE        1005
+#define DEFAULT         1006
+#define DO              1007
+#define DOUBLE          1008
+#define ELSE            1009
+#define ENUM            1010
+#define EXTERN          1011
+#define FLOAT           1012
+#define FOR             1013
+#define GOTO            1014
+#define IF              1015
+#define INT             1016
+#define LONG            1017
+#define REGISTER        1018
+#define RETURN          1019
+#define SHORT           1020
+#define SIGNED          1021
+#define SIZEOF          1022
+#define STATIC          1023
+#define STRUCT          1024
+#define SWITCH          1025
+#define TYPEDEF         1026
+#define UNION           1027
+#define UNSIGNED        1028
+#define VOID            1029
+#define VOLATILE        1030
+#define WHILE           1031
+#define CONSTANT        1032
+#define STRING_LITERAL  1033
+#define ELLIPSIS        1034
+#define RIGHT_ASSIGN    1035
+#define LEFT_ASSIGN     1036
+#define ADD_ASSIGN      1037
+#define SUB_ASSIGN      1038
+#define MUL_ASSIGN      1039
+#define DIV_ASSIGN      1040
+#define MOD_ASSIGN      1041
+#define AND_ASSIGN      1042
+#define XOR_ASSIGN      1043
+#define OR_ASSIGN       1044
+#define RIGHT_OP        1045
+#define LEFT_OP         1046
+#define INC_OP          1047
+#define DEC_OP          1048
+#define PTR_OP          1049
+#define AND_OP          1050
+#define OR_OP           1051
+#define LE_OP           1052
+#define GE_OP           1053
+#define EQ_OP           1054
+#define NE_OP           1055
+#define IDENTIFIER      1056
+
+#endif
