@@ -1,12 +1,12 @@
 #ifndef QLEX_HPP
 #define QLEX_HPP
 
-/***********************************************************
+/*********************************************************************
 From: Marco Qiaofeng Liu (Email: qiaofengmarco@outlook.com),
-      School of Computer Science and Engineering,
-      Southeast University, Jiulonghu Campus,
-      Nanjing, China
-************************************************************/
+           School of Computer Science and Engineering,
+           Southeast University, Jiulonghu Campus,
+           Nanjing, China
+*********************************************************************/
 
 #include "Headers.h"
 #include "DFA.hpp"

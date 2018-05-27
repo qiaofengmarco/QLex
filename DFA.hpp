@@ -1,12 +1,12 @@
 #ifndef MYDFA_HPP_INCLUDED
 #define MYDFA_HPP_INCLUDED
 
-/***********************************************************
+/*********************************************************************
 From: Marco Qiaofeng Liu (Email: qiaofengmarco@outlook.com),
-	  School of Computer Science and Engineering,
-	  Southeast University, Jiulonghu Campus,
-	  Nanjing, China
-************************************************************/
+           School of Computer Science and Engineering,
+           Southeast University, Jiulonghu Campus,
+           Nanjing, China
+*********************************************************************/
 
 #include "Headers.h"
 #include "LexTree.hpp"
@@ -67,8 +67,8 @@ struct link
 struct state
 {
     int state_type, state_id;
-	set<int> core;
-	set<int> action_set;
+    set<int> core;
+    set<int> action_set;
     link *links;
     state()
     {
@@ -83,43 +83,43 @@ struct state
 class DFA
 {
 public:
-	DFA() {}
+    DFA() {}
 
-	DFA(string pattern)
-	{
-		construct(pattern);
-	}
+    DFA(string pattern)
+    {
+         construct(pattern);
+    }
 
-	void construct(const string &pattern)
-	{
+    void construct(const string &pattern)
+    {
         cout << "Constructing a DFA..." << endl;
-		Tree.buildTree(pattern);
-		construct();
+        Tree.buildTree(pattern);
+        construct();
         cout << "Finish constructing." << endl;
-	}
+     }
 
     /*
-      Input:        string
-      Output:       an integer value
-      Return value: -1: no matches 
-                  otherwise: pattern id
+    Input:        string
+    Output:       an integer value
+    Return value: -1: no matches 
+    otherwise: pattern id
     */
-	int match(const string &s)
-	{
-		return match(start, s + "$", 0);
-	}
+    int match(const string &s)
+    {
+         return match(start, s + "$", 0);
+    }
 
     //print the LexTree
-	void printTree() 
-	{
+    void printTree() 
+    {
         if (merge_type != MERGER)
-		    Tree.printTree();
+            Tree.printTree();
         else
         {
             cerr << "There is no LexTrees in this DFA!" << endl;
             exit(1);
         }
-	}
+    }
 
     //print the follow table in the LexTree
     void printFollow() 
@@ -155,26 +155,26 @@ public:
 
 private:
 
-	LexTree Tree; //LexTree
+    LexTree Tree; //LexTree
 
-	void construct()
-	{
+    void construct()
+    {
         this_state_num = 0;
         states1.clear();
-		start = new state();
-		setUnion(start->core, Tree.root->firstpos);
+        start = new state();
+        setUnion(start->core, Tree.root->firstpos);
         start->state_id = state_ids;
         states_temp[state_ids] = start;
         this_state_num++;
         state_ids++;
-		construct(start);
-	}
+        construct(start);
+    }
 
-	void construct(state* s)
-	{
-		int action;
-		BinNode** b = new BinNode*();
-		bool endFlag = true;
+    void construct(state* s)
+    {
+        int action;
+        BinNode** b = new BinNode*();
+        bool endFlag = true;
 
         map<set<int>, state*>::iterator state_it;
         vector< set<int> > act_core;
@@ -552,8 +552,7 @@ void epsilon_clousure(state* s)
             s->links[action].non_empty = true;
             s->links[action].To = (*it).second;
             s->links[action].To->state_type = next_type;
-        }
-        
+        }  
     }
 }
 
