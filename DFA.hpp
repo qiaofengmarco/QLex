@@ -3,9 +3,9 @@
 
 /*********************************************************************
 From: Marco Qiaofeng Liu (Email: qiaofengmarco@outlook.com),
-           School of Computer Science and Engineering,
-           Southeast University, Jiulonghu Campus,
-           Nanjing, China
+      School of Computer Science and Engineering,
+      Southeast University, Jiulonghu Campus,
+      Nanjing, China
 *********************************************************************/
 
 #include "Headers.h"
@@ -170,6 +170,7 @@ private:
         construct(start);
     }
 
+    //construct a DFA
     void construct(state* s)
     {
         int action;
@@ -180,6 +181,7 @@ private:
         vector< set<int> > act_core;
         act_core.resize(130);
 
+        //get all next actions and cores
         for (set<int>::iterator i = s->core.begin(); i != s->core.end(); i++)
         {
             unsigned int this_action;
@@ -189,6 +191,7 @@ private:
             setUnion<int>(act_core[this_action], (*b)->followpos); //get all next core
         }
 
+        //for all possible next actions
         for (set<int>::iterator i = s->action_set.begin(); i != s->action_set.end(); i++)
         {
 
@@ -210,7 +213,7 @@ private:
                 state_ids++;
                 this_state_num++;
 
-                construct(s->links[action].To);
+                construct(s->links[action].To); //construct a new state recursively
             }
             else //pointing to the existed state
             {
@@ -220,13 +223,13 @@ private:
             }
         }
 
-        //just simplify the process for determining whether it is enable 
-        if (endFlag)
+        //just simplify the process for determining whether it is terminated or not 
+        if (endFlag) //terminated
         {
             s->state_type = DFA::pattern_num;
             pattern_num++;
         }
-        else
+        else //nonterminated
             s->state_type = NONTERMINATED;
 
         vector< set<int> > ().swap(act_core);
@@ -268,7 +271,8 @@ private:
         hash_map<int, set<int> > partitions; //store the partitions
 
         //edge_num: number of edges
-        //partition_id: use state_id to index the id of this partition      
+        //partition_id: use state_id to index the partition id
+        //If two states have the same partition id, then they are weakly equivalent.      
         vector<int> edge_num, ids, partition_id;
         edge_num.resize(this_state_num);
         ids.resize(this_state_num);
@@ -294,6 +298,7 @@ private:
         //if their numbers of edges are different, then they are not weakly equivalent.
         qsort(edge_num, ids, 0, this_state_num - 1);
 
+        //partition the states with the same number of edges into the same partition
         int pre_max = 0;
         set<int> partition;
         for (int i = 0; i < this_state_num; i++)
@@ -365,7 +370,8 @@ private:
                     standard_id = start->state_id; 
                 else
                     standard_id = *partitions[i].begin();
-
+                
+                //the standard element of this partition is the state with its state_id equaling to standard_id
                 standard_id_list[i] = standard_id;
 
                 if (partitions[i].size() == 1) continue;
@@ -400,14 +406,15 @@ private:
                             next_state_id = states_temp[*it]->links[act].To->state_id - start->state_id;
                         if ((non_empty != standard_non_empty) || ((non_empty == standard_non_empty) && (non_empty) && (partition_id[next_state_id] != partition_id[standard_act_id])))
                         {
-                            change = true;
+                            change = true; //the partition is still changing
                             q.insert(*it);
                             partition_id[*it - start->state_id] = partition_num;
-                            partitions[i].erase(it);
+                            partitions[i].erase(it); //remove the current one
                             it = partitions[i].begin();
                         }
                     }
-
+                    
+                    //if set q is nonempty, add a new partition
                     if (q.size() > 0)
                         partitions[partition_num++] = q;                 
                 }              
@@ -532,7 +539,7 @@ void epsilon_clousure(state* s)
             }
         }
         it = DFA::states1.find(U);
-        if (it == DFA::states1.end())
+        if (it == DFA::states1.end()) //a new state
         {
             s->links[action].To = new state;
             s->links[action].non_empty = true;
@@ -547,7 +554,7 @@ void epsilon_clousure(state* s)
             DFA::terminated_num++;
             epsilon_clousure(s->links[action].To);
         }
-        else
+        else //an existed state
         {
             s->links[action].non_empty = true;
             s->links[action].To = (*it).second;
